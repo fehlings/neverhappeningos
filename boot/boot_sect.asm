@@ -16,18 +16,18 @@ KERNEL_OFFSET equ 0x1000    ; Where the kernel is located
     jmp $
 
 ; Routines
-%include "gdt.asm"
-%include "print_string.asm"
-%include "disk_load.asm"
-%include "print_string_pm.asm"
-%include "switch_to_pm.asm"
+%include "boot/gdt.asm"
+%include "boot/print_string.asm"
+%include "boot/disk_load.asm"
+%include "boot/print_string_pm.asm"
+%include "boot/switch_to_pm.asm"
 
 [bits 16]
 load_kernel:
     mov bx, MSG_LOAD_KERNEL
     call print_string     
     mov bx, KERNEL_OFFSET       
-    mov dh, 15                  ; Amount of sectors loaded
+    mov dh, 1                 ; Amount of sectors loaded
     mov dl, [BOOT_DRIVE]
     call disk_load
     ret
